@@ -185,7 +185,7 @@ async def join_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     await update.message.reply_text(
         f"✅ *{user.first_name}* joined! ({count} player{'s' if count != 1 else ''} so far)\n"
-        + ("Ready! Use /begin when everyone's in." if count >= 2 else "Waiting for more players..."),
+        + ("Ready! Use /begin when everyone's in." if count >= 1 else "Waiting for more players..."),
         parse_mode="Markdown",
     )
 
@@ -200,8 +200,8 @@ async def begin_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if game["status"] != "waiting":
         await update.message.reply_text("Game already started!")
         return
-    if len(game["players"]) < 2:
-        await update.message.reply_text("Need at least 2 players to begin!")
+    if len(game["players"]) < 1:
+        await update.message.reply_text("Need at least 1 player to begin!")
         return
 
     game["status"] = "playing"
